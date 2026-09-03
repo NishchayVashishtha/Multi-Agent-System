@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #model setup 
-llm = ChatMistralAI(model="mistral-large-latest", temperature=0)
+# Using open-mistral-7b (free tier model)
+llm = ChatMistralAI(model="open-mistral-7b", temperature=0)
 
 
 #1st agent 
