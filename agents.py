@@ -4,8 +4,19 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search , scrape_url 
 from dotenv import load_dotenv
+import os
 
+# Load environment variables
 load_dotenv()
+
+# Check if running on Streamlit Cloud and load secrets
+try:
+    import streamlit as st
+    if hasattr(st, 'secrets'):
+        os.environ["MISTRAL_API_KEY"] = st.secrets.get("MISTRAL_API_KEY", os.getenv("MISTRAL_API_KEY", ""))
+        os.environ["TAVILY_API_KEY"] = st.secrets.get("TAVILY_API_KEY", os.getenv("TAVILY_API_KEY", ""))
+except:
+    pass
 
 #model setup 
 # Using open-mistral-7b (free tier model)

@@ -5,7 +5,17 @@ from tavily import TavilyClient
 import os 
 from dotenv import load_dotenv
 from rich import print
+
 load_dotenv()
+
+# Check if running on Streamlit Cloud and load secrets
+try:
+    import streamlit as st
+    if hasattr(st, 'secrets'):
+        os.environ["MISTRAL_API_KEY"] = st.secrets.get("MISTRAL_API_KEY", os.getenv("MISTRAL_API_KEY", ""))
+        os.environ["TAVILY_API_KEY"] = st.secrets.get("TAVILY_API_KEY", os.getenv("TAVILY_API_KEY", ""))
+except:
+    pass
 
 tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
